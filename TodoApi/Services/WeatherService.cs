@@ -25,7 +25,7 @@ namespace TodoApi.Services
             return new WeatherData
             {
                 TemperatureC = response.Current.TempC,
-                Condition = response.Current.Condition.Text // Correctly access the 'text' property
+                Condition = response.Current.Condition.Text 
             };
         }
     }
@@ -52,6 +52,6 @@ namespace TodoApi.Services
     public class ConditionData
     {
         public string Text { get; set; }
-        public string Icon { get; set; } // Optional: only if you want to use the icon URL
+        public string Icon { get; set; } // Optional
     }
 }

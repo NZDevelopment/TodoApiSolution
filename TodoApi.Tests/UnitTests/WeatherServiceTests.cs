@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using TodoApi.Services;
 using System.Net.Http.Json;
 using Moq.Protected;
+using Xunit;
+
 
 namespace TodoApi.Tests.UnitTests
 {
@@ -17,7 +19,7 @@ namespace TodoApi.Tests.UnitTests
 
         public WeatherServiceTests()
         {
-            // Mock the HttpMessageHandler directly
+            // Mock HttpMessageHandler
             _httpMessageHandlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             var httpClient = new HttpClient(_httpMessageHandlerMock.Object);
             _weatherService = new WeatherService(httpClient);
@@ -31,13 +33,6 @@ namespace TodoApi.Tests.UnitTests
             var longitude = -122.4194;
             var fakeWeatherResponse = new WeatherResponse
             {
-                /*
-                Current = new Current
-                {
-                    TempC = 15.0,
-                    Condition = "Sunny"
-                }
-                */
 
                 Current = new Current
                 {
@@ -49,7 +44,6 @@ namespace TodoApi.Tests.UnitTests
                 }
             };
 
-            // Setup mock to return a JSON response
             _httpMessageHandlerMock.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",

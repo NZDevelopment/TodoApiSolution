@@ -9,6 +9,6 @@ namespace TodoApi.Repositories
         Task AddTodoAsync(TodoItem todo);
         Task UpdateTodoAsync(TodoItem todo);
         Task DeleteTodoAsync(int id);
-        Task<IEnumerable<Category>> GetCategoriesAsync(); // For category retrieval
+        Task<IEnumerable<Category>> GetCategoriesAsync(); // For retrieving category
     }
 }

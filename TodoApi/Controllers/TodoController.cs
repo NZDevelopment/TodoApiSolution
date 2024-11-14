@@ -20,30 +20,12 @@ namespace TodoApi.Controllers
 
 
 
-
-
-        /*
-        public TodoController(
-            ITodoRepository todoRepository,
-            TodoService todoService,
-            WeatherService weatherService,
-            TodoDbContext context,
-            ILogger<TodoController> logger)
-        {
-            _todoRepository = todoRepository;
-            _todoService = todoService;
-            _weatherService = weatherService;
-            _context = context;
-            _logger = logger;
-        }
-        */
-
-        public TodoController(
-    ITodoRepository todoRepository,
-    TodoService todoService,
-    WeatherService weatherService,
-    TodoDbContext context,
-    ILogger<TodoController> logger)
+    public TodoController(
+        ITodoRepository todoRepository,
+        TodoService todoService,
+        WeatherService weatherService,
+        TodoDbContext context,
+        ILogger<TodoController> logger)
         {
             _todoRepository = todoRepository;
             _todoService = todoService;
@@ -78,7 +60,7 @@ namespace TodoApi.Controllers
         {
             try
             {
-                // Check if the provided categoryId exists in the Categories table
+                // Check if categoryId exists in the Categories table
                 var categoryExists = await _context.Categories.AnyAsync(c => c.Id == todo.CategoryId);
 
                 if (!categoryExists)
@@ -90,7 +72,7 @@ namespace TodoApi.Controllers
                     });
                 }
 
-                // Proceed to add the todo item if the category ID is valid
+                // Proceed to add the todo item if the categoryId is valid
                 await _todoRepository.AddTodoAsync(todo);
                 return CreatedAtAction(nameof(GetTodoById), new { id = todo.Id }, todo);
             }
@@ -133,14 +115,14 @@ namespace TodoApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                return NotFound(new ApiErrorResponse { StatusCode = 404, Message = "To-Do item not found for update" });
+                return NotFound(new ApiErrorResponse { StatusCode = 404, Message = "ToDo item not found for update" });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new ApiErrorResponse
                 {
                     StatusCode = 500,
-                    Message = "Error updating To-Do item",
+                    Message = "Error updating ToDo item",
                     Detail = ex.Message
                 });
             }
@@ -227,14 +209,13 @@ namespace TodoApi.Controllers
                 return NotFound(new ApiErrorResponse { StatusCode = 404, Message = "To-Do item not found" });
             }
 
-            // You can include due date handling in the response if needed
             var response = new
             {
                 todo.Id,
                 todo.Title,
                 todo.Priority,
                 todo.Location,
-                DueDate = todo.DueDate?.Date, // Safe access to DueDate
+                DueDate = todo.DueDate?.Date,
                 todo.Latitude,
                 todo.Longitude
             };

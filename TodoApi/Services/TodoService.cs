@@ -38,31 +38,28 @@ namespace TodoApi.Services
                 {
                     Title = todo.Todo,
                     IsCompleted = todo.Completed,
-                    //CategoryId = 1 // Default category assignment; can modify as needed
-                    CategoryId = _context.Categories.First().Id, // Assign the first available category
-                    Latitude = null, // Or any sensible default
+                    CategoryId = _context.Categories.First().Id,
+                    Latitude = null, 
                     Longitude = null,
-                    DueDate = DateTime.Now.AddDays(7) // Or another default due date if applicable
+                    DueDate = DateTime.Now.AddDays(7) 
                 };
                 _context.TodoItems.Add(todoItem);
             }
 
-            // Save all changes to the database
+            // Save changes to db
             await _context.SaveChangesAsync();
         }
 
         public async Task<List<TodoItem>> GetTodosAsync()
         {
-            //return await _context.TodoItems.ToListAsync();
             try
             {
                 return await _context.TodoItems.ToListAsync();
             }
             catch (Exception ex)
             {
-                // Log the exception (e.g., using Console, logger, etc.)
                 Console.WriteLine($"Error in GetTodosAsync: {ex.Message}");
-                throw; // Re-throw the exception to maintain stack trace
+                throw; 
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿using TodoApi.Models;
-using System.ComponentModel.DataAnnotations; // Add this line
+using System.ComponentModel.DataAnnotations; 
 
 
 namespace TodoApi.Middleware
@@ -15,17 +15,6 @@ namespace TodoApi.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            /*
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception ex)
-            {
-                await HandleExceptionAsync(context, ex);
-            }
-            */
-
             try
             {
                 await _next(context);

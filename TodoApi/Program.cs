@@ -9,12 +9,11 @@ namespace TodoApi
 {
     public class Program
     {
-        //public static void Main(string[] args)
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services
             builder.Host.UseSerilog((context, services, configuration) =>
                 configuration.WriteTo.Console().WriteTo.File("Logs/todoapi.log", rollingInterval: RollingInterval.Day));
 
@@ -23,10 +22,6 @@ namespace TodoApi
                     {
                         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
                     });
-            //.AddJsonOptions(options =>
-            // {
-            //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-            // });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -34,7 +29,7 @@ namespace TodoApi
             builder.Services.AddDbContext<TodoDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Register the Todo repository
+            // Register Todo repository
             builder.Services.AddScoped<ITodoRepository, TodoRepository>();
             builder.Services.AddScoped<TodoService>();
             builder.Services.AddScoped<WeatherService>();
@@ -81,9 +76,7 @@ namespace TodoApi
 
             app.UseHttpsRedirection();
 
-            // Register the error handling middleware
-            //app.UseMiddleware<ErrorHandlingMiddleware>();
-            app.UseMiddleware<ErrorHandlingMiddleware>(); // Register the error handling middleware here
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
 
             app.UseAuthorization();

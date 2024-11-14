@@ -21,7 +21,7 @@ namespace TodoApi.Tests.UnitTests
         public TodoRepositoryTests()
         {
             var options = new DbContextOptionsBuilder<TodoDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database for each test
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) 
                 .Options;
 
             _context = new TodoDbContext(options);
