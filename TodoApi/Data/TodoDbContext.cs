@@ -21,7 +21,7 @@ namespace TodoApi.Data
                 .HasForeignKey(c => c.ParentCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configuring relationship between TodoItem & Category
+            // Configuring relationship between TodoItem & Category.
             modelBuilder.Entity<TodoItem>()
                 .HasOne(t => t.Category)
                 .WithMany(c => c.TodoItems)
